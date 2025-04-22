@@ -452,6 +452,105 @@ class PartnerImportWizard(models.TransientModel):
         if move_vals['line_ids']:
             account_move_obj.create(move_vals)
 
+    def fix_partner_assignments_in_moves(self):
+        """
+        Revisa los apuntes contables y asigna partners basándose en cuentas 430, 410, 400.
+        Crea partners si no existen y asigna el mismo partner a todas las líneas.
+        """
+
+        print("fix_partner_assignments_in_moves")
+
+        moves = self.env['account.move'].search([])
+
+        partners_created = 0
+        moves_updated = 0
+
+        for move in moves:
+
+            print("move", move)
+            if move.id == 40:
+                print("move.id == 40, continuamos //////////////////////////////////////////////////////////////")
+
+            move_partners = []  # Diccionario para guardar partners por cuenta
+
+            # Identificar posibles partners en líneas con cuentas específicas
+            for line in move.line_ids:
+                account_code = line.account_id.code if line.account_id else ""
+                if account_code and any(account_code.startswith(prefix) for prefix in ['430', '410', '400']):
+                    if line.name:
+                        partner_name = line.name
+
+                        # Buscar si existe un partner con ese nombre
+                        partner = self.env['res.partner'].search([
+                            ('name', '=ilike', partner_name)
+                        ], limit=1)
+
+                        print("partner encontrado", partner)
+
+                        if not partner and len(partner_name) > 3:
+                            print("partner no encontrado, creando uno nuevo")
+                            partner = self.env['res.partner'].create({
+                                'name': partner_name,
+                                'company_type': 'company',
+                            })
+                            partners_created += 1
+
+                        if partner:
+                            # Añadir el partner al diccionario
+                            print("partner añadido al diccionario", partner)
+                            move_partners.append(partner)
+
+                else:
+                    print("la cuenta no empieza por 430, 410 o 400, asignamos el partner en blanco")
+
+            print("move_partners", move_partners)
+
+            # Asignar partners a todas las líneas del asiento
+            if move_partners:
+                move_updated = False
+
+                # Si solo hay un partner en el diccionario, asignarlo a todas las líneas
+                if len(move_partners) == 1:
+                    for line in move.line_ids:
+                        line.partner_id = move_partners[0].id
+                        move_updated = True
+                else:
+                    # Si hay múltiples partners, asignar según el nombre y la cuenta
+                    for line in move.line_ids:
+                        # si el codigo de cuenta empieza por 430, 410 o 400
+                        account_code = line.account_id.code if line.account_id else ""
+                        if account_code and any(account_code.startswith(prefix) for prefix in ['430', '410', '400']):
+                            # Buscar el partner por nombre
+                            partner_name = line.name
+                            partner = self.env['res.partner'].search([
+                                ('name', '=ilike', partner_name)
+                            ], limit=1)
+
+                            # Asignar el partner encontrado o creado
+                            if partner:
+                                line.partner_id = partner.id
+                                move_updated = True
+
+                        else:
+                            # Si la cuenta no empieza por 430, 410 o 400, buscar por prefijo entonces el partner lo asignamos en blanco
+                            print("********************** la cuenta no empieza por 430, 410 o 400, asignamos el partner en blanco")
+                            line.partner_id = False
+
+                if move_updated:
+                    moves_updated += 1
+
+            else:
+                # Si no hay partners en el diccionario, asignar partner en blanco
+
+                for line in move.line_ids:
+                    line.partner_id = False
+
+        return {
+            'partners_created': partners_created,
+            'moves_updated': moves_updated,
+            'message': _("%s partners creados y %s asientos actualizados.") % (partners_created, moves_updated)
+        }
+
     def _is_date(self, date_str):
         """Check if a string has date format DD-MM-YYYY."""
         try:

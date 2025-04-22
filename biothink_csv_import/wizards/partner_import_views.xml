@@ -25,6 +25,7 @@
                 </group>
                 <footer>
                     <button name="action_import" string="Importar" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button name="fix_partner_assignments_in_moves" string="Corregir partners en asientos" type="object" class="btn-secondary" data-hotkey="p"/>
                     <button string="Cancelar" class="btn-secondary" special="cancel" data-hotkey="z"/>
                 </footer>
             </form>
