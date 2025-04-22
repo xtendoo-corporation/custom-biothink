@@ -109,8 +109,8 @@ class PartnerImportWizard(models.TransientModel):
 
     def _convert_accounts_to_eigth_digits(self):
         """Convierte todas las cuentas contables existentes a 8 dígitos."""
-        account_obj = self.env['account.account']
-        accounts = account_obj.search([])
+        account_account_obj = self.env['account.account']
+        accounts = account_account_obj.search([])
 
         for account in accounts:
             original_code = account.code
@@ -122,7 +122,8 @@ class PartnerImportWizard(models.TransientModel):
             if len(original_code) < 8:
                 # Rellenar con ceros a la derecha
                 new_code = original_code.ljust(8, '0')
-                account.code = new_code
+                if not account_account_obj.search([('code', '=', new_code)], limit=1):
+                    account.code = new_code
 
     def _import_account_plan(self):
         """
@@ -151,7 +152,7 @@ class PartnerImportWizard(models.TransientModel):
             # Dividir el texto en líneas
             lines = csv_text.splitlines()
 
-            account_obj = self.env['account.account']
+            account_account_obj = self.env['account.account']
 
             for line in lines:
                 if not line.strip():
@@ -175,7 +176,7 @@ class PartnerImportWizard(models.TransientModel):
                     continue
 
                 # Verificar si la cuenta ya existe
-                existing_account = account_obj.search([('code', '=', code)], limit=1)
+                existing_account = account_account_obj.search([('code', '=', code)], limit=1)
                 if existing_account:
                     accounts_skipped += 1
                     continue
@@ -184,7 +185,7 @@ class PartnerImportWizard(models.TransientModel):
                 account_type = self._determine_account_type(code)
 
                 # Crear la cuenta
-                account_obj.create({
+                account_account_obj.create({
                     'code': code,
                     'name': name,
                     'account_type': account_type,
