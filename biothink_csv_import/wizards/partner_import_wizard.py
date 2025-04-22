@@ -442,6 +442,8 @@ class PartnerImportWizard(models.TransientModel):
                 'ref': line['ref'],
             }))
 
+        print("move_vals", move_vals)
+
         # Crear el asiento si hay líneas
         if move_vals['line_ids']:
             account_move_obj.create(move_vals)
