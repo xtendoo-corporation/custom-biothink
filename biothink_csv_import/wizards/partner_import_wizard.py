@@ -113,6 +113,8 @@ class PartnerImportWizard(models.TransientModel):
         accounts = account_account_obj.search([])
 
         for account in accounts:
+            print("account", account)
+
             original_code = account.code
 
             # Si ya tiene 8 dígitos, no hacer nada
@@ -122,7 +124,8 @@ class PartnerImportWizard(models.TransientModel):
             if len(original_code) < 8:
                 # Rellenar con ceros a la derecha
                 new_code = original_code.ljust(8, '0')
-                if not account_account_obj.search([('code', '=', new_code)], limit=1):
+                is_account = account_account_obj.search([('code', '=', new_code)], limit=1)
+                if not is_account:
                     account.code = new_code
 
     def _import_account_plan(self):
