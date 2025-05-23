@@ -14,6 +14,16 @@
             </form>
         </field>
     </record>
+    <record id="view_whatsapp_template_tree" model="ir.ui.view">
+        <field name="name">whatsapp.template.tree</field>
+        <field name="model">whatsapp.template</field>
+        <field name="arch" type="xml">
+            <tree string="Plantillas WhatsApp">
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
     <record id="whatsapp_template_action" model="ir.actions.act_window">
         <field name="name">Plantillas WhatsApp</field>
         <field name="res_model">whatsapp.template</field>
