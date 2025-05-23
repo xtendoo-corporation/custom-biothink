@@ -1,0 +1,10 @@
+<odoo>
+    <record id="account_move_action_open_whatsapp_wizard" model="ir.actions.act_window">
+        <field name="name">Enviar WhatsApp personalizado</field>
+        <field name="res_model">account.move.whatsapp.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_move_id': active_id}</field>
+    </record>
+    <act_window id="account_move_action_open_whatsapp_wizard_act" name="Enviar WhatsApp personalizado" res_model="account.move" src_model="account.move" view_mode="form" target="new" binding_model_id="account.model_account_move" binding_type="action" context="{'default_move_id': active_id}" key2="client_action_multi"/>
+</odoo>
