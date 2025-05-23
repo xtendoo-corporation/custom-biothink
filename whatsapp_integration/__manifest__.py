@@ -5,7 +5,7 @@
     "author": "Tu Empresa",
     "website": "https://tuempresa.com",
     "category": "Tools",
-    "depends": ["base", "mail", "calendar"],
+    "depends": ["base", "mail", "calendar", "sale_management", "purchase", "account"],
     "data": [
         "security/ir.model.access.csv",
         "views/whatsapp_config_views.xml",
