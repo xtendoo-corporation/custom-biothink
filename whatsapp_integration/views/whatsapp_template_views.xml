@@ -14,10 +14,10 @@
             </form>
         </field>
     </record>
-    <menuitem id="menu_whatsapp_template" name="Plantillas" parent="menu_whatsapp_root" action="whatsapp_template_action"/>
     <record id="whatsapp_template_action" model="ir.actions.act_window">
         <field name="name">Plantillas WhatsApp</field>
         <field name="res_model">whatsapp.template</field>
         <field name="view_mode">tree,form</field>
     </record>
+    <menuitem id="menu_whatsapp_template" name="Plantillas" parent="menu_whatsapp_root" action="whatsapp_template_action"/>
 </odoo>
