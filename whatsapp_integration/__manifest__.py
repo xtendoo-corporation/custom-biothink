@@ -20,7 +20,9 @@
         "views/purchase_order_whatsapp_wizard_views.xml",
         "views/purchase_order_whatsapp_wizard_action.xml",
         "views/account_move_whatsapp_wizard_views.xml",
-        "views/account_move_whatsapp_wizard_action.xml"
+        "views/account_move_whatsapp_wizard_action.xml",
+        "views/whatsapp_message_tree.xml",
+        "views/whatsapp_template_tree.xml"
     ],
     "installable": True,
     "application": True,
