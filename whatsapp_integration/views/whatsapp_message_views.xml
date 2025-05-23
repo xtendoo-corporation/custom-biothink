@@ -22,10 +22,10 @@
             </form>
         </field>
     </record>
-    <menuitem id="menu_whatsapp_message" name="Mensajes" parent="menu_whatsapp_root" action="whatsapp_message_action"/>
     <record id="whatsapp_message_action" model="ir.actions.act_window">
         <field name="name">Mensajes WhatsApp</field>
         <field name="res_model">whatsapp.message</field>
         <field name="view_mode">tree,form</field>
     </record>
+    <menuitem id="menu_whatsapp_message" name="Mensajes" parent="menu_whatsapp_root" action="whatsapp_message_action"/>
 </odoo>
