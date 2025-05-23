@@ -3,13 +3,13 @@
         <field name="name">whatsapp.message.tree</field>
         <field name="model">whatsapp.message</field>
         <field name="arch" type="xml">
-            <tree string="Mensajes WhatsApp">
+            <list string="Mensajes WhatsApp">
                 <field name="partner_id"/>
                 <field name="message"/>
                 <field name="message_type"/>
                 <field name="status"/>
                 <field name="create_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 </odoo>

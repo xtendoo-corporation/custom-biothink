@@ -3,10 +3,10 @@
         <field name="name">whatsapp.template.tree</field>
         <field name="model">whatsapp.template</field>
         <field name="arch" type="xml">
-            <tree string="Plantillas WhatsApp">
+            <list string="Plantillas WhatsApp">
                 <field name="name"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 </odoo>
