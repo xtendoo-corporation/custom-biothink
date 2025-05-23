@@ -16,7 +16,7 @@
                         <field name="create_date"/>
                     </group>
                     <footer>
-                        <button name="action_send_whatsapp" type="object" string="Enviar por WhatsApp" class="btn-primary" attrs="{'invisible': [('message_type', '=', 'in')]}"/>
+                        <button name="action_send_whatsapp" type="object" string="Enviar por WhatsApp" class="btn-primary"/>
                     </footer>
                 </sheet>
             </form>
