@@ -17,11 +17,11 @@
             </form>
         </field>
     </record>
-    <menuitem id="menu_whatsapp_root" name="WhatsApp" sequence="10"/>
-    <menuitem id="menu_whatsapp_config" name="Configuración" parent="menu_whatsapp_root" action="whatsapp_config_action"/>
     <record id="whatsapp_config_action" model="ir.actions.act_window">
         <field name="name">Configuración WhatsApp</field>
         <field name="res_model">whatsapp.config</field>
         <field name="view_mode">tree,form</field>
     </record>
+    <menuitem id="menu_whatsapp_root" name="WhatsApp" sequence="10"/>
+    <menuitem id="menu_whatsapp_config" name="Configuración" parent="menu_whatsapp_root" action="whatsapp_config_action"/>
 </odoo>
