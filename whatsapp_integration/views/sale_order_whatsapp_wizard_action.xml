@@ -1,9 +1,0 @@
-<odoo>
-    <record id="sale_order_action_open_whatsapp_wizard" model="ir.actions.act_window">
-        <field name="name">Enviar WhatsApp personalizado</field>
-        <field name="res_model">sale.order.whatsapp.wizard</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="context">{'default_order_id': active_id}</field>
-    </record>
-</odoo>
